@@ -496,6 +496,13 @@ jobs:
     - name: Initialize Config Fragment
       run: touch "${{ github.workspace }}/wild_gki.fragment"
 
+    - name: Disable Module Signature (6.1 only)
+      if: inputs.kernel_version == '6.1'
+      uses: ./.github/actions/set-kernel-config
+      with:
+        config_list: |
+          CONFIG_MODULE_SIG=n
+      
     - name: Apply Kernel Bypass Hack
       if: ${{ inputs.bypass == 'true' }}
       uses: ./.github/actions/bypass-kernel
