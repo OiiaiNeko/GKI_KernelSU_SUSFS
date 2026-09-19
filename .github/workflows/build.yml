@@ -500,7 +500,9 @@ jobs:
       if: inputs.kernel_version == '6.1'
       shell: bash
       run: |
-        echo "CONFIG_MODULE_SIG=n" > "${{ github.workspace }}/wild_gki.fragment"
+        echo "CONFIG_MODULE_SIG=n" > "${{ github.workspace }}/kernel/common/wild_gki.fragment"
+        # 将 fragment 导出为 Bazel 文件，以便通过 label 引用
+        echo 'exports_files(["wild_gki.fragment"])' >> "${{ github.workspace }}/kernel/common/BUILD.bazel"
       
     - name: Apply Kernel Bypass Hack
       if: ${{ inputs.bypass == 'true' }}
