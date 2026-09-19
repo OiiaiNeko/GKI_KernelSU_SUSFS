@@ -37,6 +37,7 @@ runs:
         tools/bazel build \
           --config=fast \
           --disk_cache=/home/runner/.cache/bazel \
+          --defconfig_fragment=${{ github.workspace }}/wild_gki.fragment \
           //common:kernel_aarch64/Image
       fi
 
