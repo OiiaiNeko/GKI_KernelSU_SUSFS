@@ -34,10 +34,10 @@ runs:
         build/build.sh -j"$(nproc)"
       else
         sed -i '/name = "kernel_aarch64",/a\    check_defconfig = "disabled",' common/BUILD.bazel
-        tools/bazel build \
+                tools/bazel build \
           --config=fast \
           --disk_cache=/home/runner/.cache/bazel \
-          --defconfig_fragment=${{ github.workspace }}/wild_gki.fragment \
+          --defconfig_fragment=//common:wild_gki.fragment \
           //common:kernel_aarch64/Image
       fi
 
