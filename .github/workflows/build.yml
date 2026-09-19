@@ -500,7 +500,10 @@ jobs:
       if: inputs.kernel_version == '6.1'
       shell: bash
       run: |
-        echo "CONFIG_MODULE_SIG=n" > "${{ github.workspace }}/kernel/common/wild_gki.fragment"
+        cat > "${{ github.workspace }}/kernel/common/wild_gki.fragment" <<'EOF'
+        # CONFIG_MODULE_SIG is not set
+        # CONFIG_MODULE_SIG_PROTECT is not set
+        EOF
         # 将 fragment 导出为 Bazel 文件，以便通过 label 引用
         echo 'exports_files(["wild_gki.fragment"])' >> "${{ github.workspace }}/kernel/common/BUILD.bazel"
       
